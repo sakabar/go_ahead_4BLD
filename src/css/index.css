@@ -1,3 +1,7 @@
+body {
+    margin: 0 0 0 10mm;
+}
+
 .ExtendElevation__Face {
     width: 25mm;
     height: 25mm;
