@@ -17,6 +17,11 @@ const button_func = (numbering, l_2_p_numbering) => {
 
     let result = '';
 
+    // スクランブル
+    const scramble_text_obj = document.querySelector('.Scramble__Text');
+    const scramble_text = scramble_text_obj.value;
+    result += ' ' + scramble_text + ' // Scramble\n';
+
     // センター
     const center_text_obj = document.querySelector('.Analysis__CenterText');
     const center_analysis = center_text_obj.value;
