@@ -4,9 +4,9 @@
   "description": "4BLD Analysis Checker",
   "main": "index.js",
   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "eslint": "eslint src/js/*",
-      "webpack": "webpack"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint src/js/*",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
