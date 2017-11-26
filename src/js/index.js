@@ -13,7 +13,7 @@ const button_func = (numbering, l_2_p_numbering) => {
         for (let k = 0; k < part_ln; k++) {
             const part = parts[k];
             const obj = document.querySelector('.' + part_type + '__' + part);
-            document.cookie = part_type + '_' + part + '=' + obj.value.charAt(0);
+            docCookies.setItem(part_type + '_' + part, obj.value.charAt(0), Infinity);
             if (obj.value === ''){
                 has_blank_numbering = true;
             }
@@ -142,7 +142,7 @@ const setup = () => {
             l_2_p_numbering[part_type][letter] = part;
             //alert(part + ':' + numbering['edge'][part])
             obj.value = numbering[part_type][part];
-            docCookies.setItem(cookie_key, numbering[part_type][part]);
+            docCookies.setItem(cookie_key, numbering[part_type][part], Infinity);
         });
     });
 
