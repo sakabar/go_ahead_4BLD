@@ -2,20 +2,31 @@
 const docCookies = require('./cookies');
 
 const button_func = (numbering, l_2_p_numbering) => {
-    const part_types = ['Edge', 'Center', 'Corner'];
+    const part_types = ['Center', 'Edge', 'Corner'];
+    const part_types_ln = part_types.length;
 
-    part_types.forEach((part_type) => {
+    let has_blank_numbering = false;
+    for (let i = 0; i < part_types_ln; i++) {
+        const part_type = part_types[i];
         const parts = Object.keys(numbering[part_type]);
-        parts.forEach((part) => {
+        const part_ln = parts.length;
+        for (let k = 0; k < part_ln; k++) {
+            const part = parts[k];
             const obj = document.querySelector('.' + part_type + '__' + part);
             document.cookie = part_type + '_' + part + '=' + obj.value.charAt(0);
             if (obj.value === ''){
-                alert(part_type + '_' + part + ' is blank.');
+                has_blank_numbering = true;
             }
-        });
-    });
+        }
+    }
 
     let result = '';
+    if (has_blank_numbering) {
+        result += '// Some numbering are blank.\n\n';
+        alert('Some numbering are blank.');
+    }
+
+
 
     // スクランブル
     const scramble_text_obj = document.querySelector('.Scramble__Text');
@@ -80,7 +91,7 @@ const button_func = (numbering, l_2_p_numbering) => {
 const setup = () => {
     let numbering = {};
     let l_2_p_numbering = {};
-    const part_types = ['Edge', 'Center', 'Corner'];
+    const part_types = ['Center', 'Edge', 'Corner'];
     part_types.forEach((part_type) => {
         numbering[part_type] = {};
         l_2_p_numbering[part_type] = {};
