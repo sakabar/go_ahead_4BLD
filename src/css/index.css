@@ -1,11 +1,3 @@
-.ExtendElevation__Invisible {
-    width: 25mm;
-    height: 25mm;
-    display: inline-block;
-    _display: inline;
-    padding: 1px;
-}
-
 .ExtendElevation__Face {
     width: 25mm;
     height: 25mm;
@@ -14,44 +6,51 @@
     padding: 1px;
 }
 
+.ExtendElevation__Invisible {
+    /* border: solid 1px #ffffff; */
+}
+.ExtendElevation__White {
+    /* border: solid 1px #000000; */
+}
+
+
 .ExtendElevation__Orange {
-   border: solid 1px #ffbf00;
+    border: solid 1px #ffbf00;
 }
 
 .ExtendElevation__Green {
-   border: solid 1px #00ff00;
+    border: solid 1px #00ff00;
 }
 
 .ExtendElevation__Red {
-   border: solid 1px #ff0000;
+    border: solid 1px #ff0000;
 }
 
 .ExtendElevation__Blue {
-   border: solid 1px #0000ff;
+    border: solid 1px #0000ff;
 }
 
 .ExtendElevation__Yellow {
-   border: solid 1px #ffff00;
+    border: solid 1px #ffff00;
 }
-
-
-
 
 .piece {
     width: 5mm;
     height: 5mm;
+    font-size: x-small;
 }
 
 .ExtendElevation {
-    border: solid 1px #000000;
+    /* border: solid 1px #000000; */
+    /* background-color: #8FBF3F; */
 }
 
 .Analysis {
-    background-color: #8FBF3F;
-        border: solid 1px #000000;
+    /* background-color: #8FBF3F; */
+    /* border: solid 1px #000000; */
 }
 
 .Result {
-    background-color: #1FD3DF;
-        border: solid 1px #000000;
+    /* background-color: #1FD3DF; */
+    /* border: solid 1px #000000; */
 }

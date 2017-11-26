@@ -1,17 +1,18 @@
 <html>
   <head>
-    <title>Go ahead!</title>
+    <title>Go ahead</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="src/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="src/css/index.css">
   </head>
   <body>
-    <h1>title</h1>
+    <h1>Go ahead</h1>
 
     <div class="ExtendElevation">
+      <h2>Numbering</h2>
       <div class="ExtendElevation__Upper">
-        <div class="ExtendElevation__Invisible"></div>
-        <div class="ExtendElevation__Face">
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__White">
           <input class="Piece" type="text" disabled="disabled" value="B">
           <input class="Piece" type="text" disabled="disabled" value="X">
           <input class="Piece Edge__UB" type="text">
@@ -30,11 +31,10 @@
           <input class="Piece Corner__UFL" type="text">
           <input class="Piece Edge__UF" type="text">
           <input class="Piece" type="text" disabled="disabled" value="X">
-          <input class="Piece Corner__UFR" type="text"><br>
+          <input class="Piece Corner__UFR" type="text">
         </div>
-
-        <div class="ExtendElevation__Invisible"></div>
-        <div class="ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
       </div>
 
       <div class="ExtendElevation__Middle">
@@ -126,7 +126,7 @@
       </div>
 
       <div class="ExtendElevation__Lower">
-        <div class="ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
         <div class="ExtendElevation__Face ExtendElevation__Yellow">
           <input class="Piece Corner__DFL" type="text">
           <input class="Piece" type="text" disabled="disabled" value="X">
@@ -148,25 +148,23 @@
           <input class="Piece" type="text" disabled="disabled" value="X">
           <input class="Piece  Corner__DBR" type="text"><br>
         </div>
-        </div>
-
-        <div class="ExtendElevation__Invisible"></div>
-        <div class="ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
+        <div class="ExtendElevation__Face ExtendElevation__Invisible"></div>
       </div>
     </div>
 
-
     <div class="Analysis">
-      <input class="Analysis__CenterText" type="text"><input class="Analysis__CenterParity" type="checkbox"><br>
-      <input class="Analysis__EdgeText" type="text"><input class="Analysis__EdgeParity" type="checkbox"><br>
-      <input class="Analysis__CornerText" type="text"><input class="Analysis__CornerParity" type="checkbox"><br>
-      <input class="Analysis__Button" type="button" value="決定">
+      <h2>Analysis</h2>
+      <input class="Analysis__CenterText" type="text" size="50" placeholder="Center">    Parity? <input class="Analysis__CenterParity" type="checkbox"><br>
+      <input class="Analysis__EdgeText" type="text" size="50" placeholder="Edge">    Parity? <input class="Analysis__EdgeParity" type="checkbox"><br>
+      <input class="Analysis__CornerText" type="text" size="50" placeholder="Corner">    Parity? <input class="Analysis__CornerParity" type="checkbox"><br>
+      <input class="Analysis__Button" type="button" value="OK">
     </div>
 
     <div class="Result">
-      <!-- <input class="Result__Text" type="text"><br> -->
-      <a href="https://alg.cubing.net/?puzzle=4x4x4" target="_blank">https://alg.cubing.net/?puzzle=4x4x4(外部リンク)</a><br>
-      <textarea class="Result__Text" cols="100" rows="100"></textarea><br>
+      <h2>Result</h2>
+      Copy and paste it in <a href="https://alg.cubing.net/?puzzle=4x4x4" target="_blank">https://alg.cubing.net/?puzzle=4x4x4</a><br>
+      <textarea class="Result__Text" cols="60" rows="10"></textarea><br>
     </div>
 
 
