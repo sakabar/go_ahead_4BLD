@@ -1,0 +1,30 @@
+{
+  "name": "go_ahead_4bld",
+  "version": "0.0.1",
+  "description": "4BLD Analysis Checker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint src/js/*",
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakabar/go_ahead_4BLD.git"
+  },
+  "author": "Takafumi Sakakibara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sakabar/go_ahead_4BLD/issues"
+  },
+  "homepage": "https://github.com/sakabar/go_ahead_4BLD#readme",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "eslint": "4.11.0",
+    "webpack": "3.8.1"
+  },
+  "dependencies": {}
+}
