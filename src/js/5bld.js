@@ -316,7 +316,7 @@ const medge_func = (part, ind) => {
         return 'U\' L\' U M2 U\' L U';
     case 'FU':
         if (ind % 2 == 0) {
-            return 'D M U M2 U\' M\' U R2 U\' D\' M2';
+            return 'D M\' U M2 U\' M U R2 U\' D\' M2';
         }
         else {
             return medge_func('BD', 0);
