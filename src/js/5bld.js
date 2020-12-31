@@ -1,8 +1,10 @@
 'use strict';
+
+// 4BLD版のコードと共通化できる部分が多いが、それは今後の課題とする
 import Cookies from 'js-cookie';
 
 const button_func = (numbering, l_2_p_numbering) => {
-    const part_types = ['Center', 'Edge', 'Corner'];
+    const part_types = ['Center', 'Edge', 'Corner', 'Tcenter', 'Medge', ];
     const part_types_ln = part_types.length;
 
     let has_blank_numbering = false;
@@ -14,6 +16,7 @@ const button_func = (numbering, l_2_p_numbering) => {
             const part = parts[k];
             const obj = document.querySelector('.' + part_type + '__' + part);
             Cookies.set(part_type + '_' + part, obj.value.charAt(0), { path: '/BLD/go_ahead', expires: 399, });
+
             if (obj.value === ''){
                 has_blank_numbering = true;
             }
@@ -33,7 +36,26 @@ const button_func = (numbering, l_2_p_numbering) => {
     const scramble_text = scramble_text_obj.value;
     result += ' ' + scramble_text + ' // Scramble\n';
 
-    // センター
+    // +センター
+    const tcenter_text_obj = document.querySelector('.Analysis__TcenterText');
+    const tcenter_analysis = tcenter_text_obj.value;
+    const tcenter_spl = tcenter_analysis.split('');
+    const tcenter_ln = tcenter_spl.length;
+    for (let i = 0; i < tcenter_ln; i++) {
+        const letter = tcenter_spl[i];
+        const part = l_2_p_numbering['Tcenter'][letter];
+        result += ' ' + tcenter_func(part, i) + ' // + Center ' + part + ' ' + letter + ' \n';
+    }
+
+    // +センターパリティ
+    const tcenter_parity_checkbox = document.querySelector('.Analysis__TcenterParity');
+    if (tcenter_parity_checkbox.checked) {
+        result += ' ' + tcenter_parity + ' // + Center Parity\n';
+    }
+
+    result += '\n';
+
+    // Xセンター
     const center_text_obj = document.querySelector('.Analysis__CenterText');
     const center_analysis = center_text_obj.value;
     const center_spl = center_analysis.split('');
@@ -41,16 +63,18 @@ const button_func = (numbering, l_2_p_numbering) => {
     for (let i = 0; i < center_ln; i++) {
         const letter = center_spl[i];
         const part = l_2_p_numbering['Center'][letter];
-        result += ' ' + center_func(part, i) + ' // Center ' + part + ' ' + letter + ' \n';
+        result += ' ' + center_func(part, i) + ' // X Center ' + part + ' ' + letter + ' \n';
     }
 
-    // センターパリティ
+    // X センターパリティ
     const center_parity_checkbox = document.querySelector('.Analysis__CenterParity');
     if (center_parity_checkbox.checked) {
-        result += ' ' + center_parity + ' // Center Parity\n';
+        result += ' ' + center_parity + ' // X Center Parity\n';
     }
 
-    // エッジ
+    result += '\n';
+
+    // Wエッジ
     const edge_text_obj = document.querySelector('.Analysis__EdgeText');
     const edge_analysis = edge_text_obj.value;
     const edge_spl = edge_analysis.split('');
@@ -58,13 +82,32 @@ const button_func = (numbering, l_2_p_numbering) => {
     for (let i = 0; i < edge_ln; i++) {
         const letter = edge_spl[i];
         const part = l_2_p_numbering['Edge'][letter];
-        result += ' ' + edge_func(part, i) + ' // Edge ' + part + ' ' + letter + ' \n';
+        result += ' ' + edge_func(part, i) + ' // Wing Edge ' + part + ' ' + letter + ' \n';
     }
 
-    // センターパリティ
+    // Wエッジパリティ
     const edge_parity_checkbox = document.querySelector('.Analysis__EdgeParity');
     if (edge_parity_checkbox.checked) {
-        result += ' ' + edge_parity + ' // Edge Parity\n';
+        result += ' ' + edge_parity + ' // Wing Edge Parity\n';
+    }
+
+    result += '\n';
+
+    // ミドルエッジ
+    const medge_text_obj = document.querySelector('.Analysis__MedgeText');
+    const medge_analysis = medge_text_obj.value;
+    const medge_spl = medge_analysis.split('');
+    const medge_ln = medge_spl.length;
+    for (let i = 0; i < medge_ln; i++) {
+        const letter = medge_spl[i];
+        const part = l_2_p_numbering['Medge'][letter];
+        result += ' ' + medge_func(part, i) + ' // Middle Edge ' + part + ' ' + letter + ' \n';
+    }
+
+    // 3BLDパリティ
+    const medge_parity_checkbox = document.querySelector('.Analysis__MedgeParity');
+    if (medge_parity_checkbox.checked) {
+        result += ' ' + medge_parity + ' // 3BLD Parity\n';
     }
 
     // コーナー
@@ -78,12 +121,6 @@ const button_func = (numbering, l_2_p_numbering) => {
         result += ' ' + corner_func(part) + ' // Corner ' + part + ' ' + letter + ' \n';
     }
 
-    // センターパリティ
-    const corner_parity_checkbox = document.querySelector('.Analysis__CornerParity');
-    if (corner_parity_checkbox.checked) {
-        result += ' ' + corner_parity + ' // Corner Parity\n';
-    }
-
     const result_text_obj = document.querySelector('.Result__Text');
     result_text_obj.value = replace_small_letter(result).replace(/[()]/g, '');
 };
@@ -91,7 +128,7 @@ const button_func = (numbering, l_2_p_numbering) => {
 const setup = () => {
     let numbering = {};
     let l_2_p_numbering = {};
-    const part_types = ['Center', 'Edge', 'Corner'];
+    const part_types = ['Center', 'Edge', 'Corner', 'Tcenter', 'Medge', ];
     part_types.forEach((part_type) => {
         numbering[part_type] = {};
         l_2_p_numbering[part_type] = {};
@@ -111,10 +148,26 @@ const setup = () => {
         'DFL', 'DFR', 'DBL', 'DBR'
     ];
 
+    parts['Tcenter'] = [
+        'UR', 'UF', 'UL',
+        'LU', 'LF', 'LD', 'LB',
+        'FU', 'FR', 'FD', 'FL',
+        'RU', 'RB', 'RD', 'RF',
+        'BU', 'BL', 'BD', 'BR',
+        'DF', 'DR', 'DB', 'DL'];
+
     parts['Edge'] = [
         'UB', 'UR', 'UF', 'UL',
         'LU', 'LF', 'LD', 'LB',
         'FU', 'FR', 'FD', 'FL',
+        'RU', 'RB', 'RD', 'RF',
+        'BU', 'BL', 'BD', 'BR',
+        'DR', 'DB', 'DL'];
+
+    parts['Medge'] = [
+        'UB', 'UR', 'UF', 'UL',
+        'LU', 'LF', 'LD', 'LB',
+        'FU', 'FR', 'FL',
         'RU', 'RB', 'RD', 'RF',
         'BU', 'BL', 'BD', 'BR',
         'DR', 'DB', 'DL'];
@@ -151,18 +204,12 @@ const setup = () => {
 
 const replace_small_letter = (sequence_str) => {
     return sequence_str
-        .replace(/ l' /g, ' (Lw\' L) ')
-        .replace(/ l /g, ' (Lw L\') ')
-        .replace(/ r' /g, ' (Rw\' R) ')
-        .replace(/ r /g, ' (Rw R\') ')
-        .replace(/ u' /g, ' (Uw\' U) ')
-        .replace(/ u /g, ' (Uw U\') ')
-        .replace(/ d' /g, ' (Dw\' D) ')
-        .replace(/ d /g, ' (Dw D\') ')
-        .replace(/ l2 /g, ' (Lw2 L2) ')
-        .replace(/ r2 /g, ' (Rw2 R2) ')
-        .replace(/ u2 /g, ' (Uw2 U2) ')
-        .replace(/ d2 /g, ' (Dw2 D2) ');
+        .replace(/ l/g, ' 2L')
+        .replace(/ r/g, ' 2R')
+        .replace(/ u/g, ' 2U')
+        .replace(/ d/g, ' 2D')
+        .replace(/ f/g, ' 2F')
+        .replace(/ b/g, ' 2B');
 };
 
 const edge_func = (part, ind) => {
@@ -240,6 +287,160 @@ const edge_func = (part, ind) => {
 
     return '';
 };
+
+const medge_func = (part, ind) => {
+    switch (part) {
+    // U面
+    case 'UL':
+        return 'L\' U\' L U M2 U\' L\' U L';
+    case 'UB':
+        return 'M2';
+    case 'UR':
+        return 'R U R\' U\' M2 U R U\' R\'';
+    case 'UF':
+        return 'M D2 M\' U2 M D2 M\' U2 M2';
+
+
+    // L面
+    case 'LF':
+        return 'B L2 B\' M2 B L2 B\'';
+    case 'LU':
+        return 'B L\' B\' M2 B L B\'';
+    case 'LB':
+        return 'L\' B L B\' M2 B L\' B\' L';
+    case 'LD':
+        return 'B L B\' M2 B L\' B\'';
+
+    // F面
+    case 'FL':
+        return 'U\' L\' U M2 U\' L U';
+    case 'FU':
+        if (ind % 2 == 0) {
+            return 'D M\' U M2 U\' M U R2 U\' D\' M2';
+        }
+        else {
+            return medge_func('BD', 0);
+        }
+    case 'FR':
+        return 'U R U\' M2 U R\' U\'';
+
+
+    // R面
+    case 'RF':
+        return 'B\' R2 B M2 B\' R2 B';
+    case 'RU':
+        return 'B\' R B M2 B\' R\' B';
+    case 'RB':
+        return 'R B\' R\' B M2 B\' R B R\'';
+    case 'RD':
+        return 'B\' R\' B M2 B\' R B';
+
+    // B面
+    case 'BU':
+        return 'U B\' R U\' B M2 B\' U R\' B U\'';
+    case 'BR':
+        return 'U R\' U\' M2 U R U\'';
+    case 'BL':
+        return 'U\' L U M2 U\' L\' U';
+    case 'BD':
+        if (ind % 2 == 0) {
+            return 'M2 D U R2 U\' M\' U R2 U\' M D\'';
+        }
+        else {
+            return medge_func('FU', 0);
+        }
+
+    // D面
+    case 'DR':
+        return 'U R2 U\' M2 U R2 U\'';
+    case 'DL':
+        return 'U\' L2 U M2 U\' L2 U';
+    case 'DB':
+        if (ind % 2 == 0) {
+            return 'M2 U2 M D2 M\' U2 M D2 M\'';
+        } else {
+            return medge_func('UF', 0);
+        }
+    }
+
+    return '';
+}
+
+const tcenter_func = (part, ind) => {
+    switch (part){
+    // U面
+    case 'UR': {
+        if (ind % 2 == 0) {
+            return 'r\' f\' E\' f U2 f\' E f U2 r U2';
+        }
+        else {
+            return tcenter_func('UL', 0);
+        }
+    }
+    case 'UL': {
+        if (ind % 2 == 0) {
+            return 'l f E f\' U2 f E\' f\' U2 l\' U2'
+        }
+        else {
+            return tcenter_func('UR', 0);
+        }
+    }
+    case 'UF':
+        return 'U2';
+
+    //L面
+    case 'LF':
+        return 'y\' E\' r\' E r U2 r\' E\' r E y';
+    case 'LU':
+        return 'M\' u M U2 M\' u\' M';
+    case 'LB':
+        return 'y\' r E2 r\' U2 r E2 r\' y';
+    case 'LD':
+        return 'M d M\' U2 M d\' M\'';
+
+    //F面
+    case 'FR':
+        return 'y\' r\' E\' r U2 r\' E r y';
+    case 'FL':
+        return 'y l E l\' U2 l E\' l\' y\'';
+    case 'FU':
+        return 'u M\' u M U2 M\' u\' M u\'';
+    case 'FD':
+        return 'd\' M d M\' U2 M d\' M\' d';
+
+    //R面
+    case 'RF':
+        return 'y E\' l E l\' U2 l E\' l\' E y\'';
+    case 'RU':
+        return 'M\' u\' M U2 M\' u M';
+    case 'RB':
+        return 'y l\' E2 l U2 l\' E2 l y\'';
+    case 'RD':
+        return 'M d\' M\' U2 M d M\'';
+
+    //B面
+    case 'BU':
+        return 'u M\' u\' M U2 M\' u M u\'';
+    case 'BL':
+        return 'y\' r\' E r U2 r\' E\' r y';
+    case 'BR':
+        return 'y l E\' l\' U2 l E l\'y\'';
+    case 'BD':
+        return 'd\' M d\' M\' U2 M d M\' d';
+
+    //D面
+    case 'DF':
+        return 'M\' u2 M U2 M\' u2 M';
+    case 'DR':
+        return 'D\' ' + tcenter_func('DF') + ' D';
+    case 'DL':
+        return 'D ' + tcenter_func('DF') + ' D\'';
+    case 'DB':
+        return 'D2 ' + tcenter_func('DF') + ' D2';
+    }
+
+    return '';
+}
 
 const center_func = (part, ind) => {
     switch (part){
@@ -379,10 +580,9 @@ const corner_func = (part) => {
     return '';
 };
 
+const tcenter_parity = 'U2';
 const center_parity = 'U2';
 const edge_parity = 'r2 D\' L\' F l\' U2 l\' U2 F2 l\' F2 r U2 r\' U2 l2 F\' L D';
-const corner_parity = 'y2 R U R\' U\' r2 U2 r2 Uw2 r2 Uw2 U\' R U\' R\' y2';
+const medge_parity = '(D\' L2 D M2 D\' L2 D) (L U L\' U\') (Rw2 F2 U2 r2 U2 F2 Rw2) (U L U\' L\')';
 
 setup();
-
-
