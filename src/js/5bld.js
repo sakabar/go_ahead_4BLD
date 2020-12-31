@@ -1,8 +1,7 @@
 'use strict';
 
 // 4BLD版のコードと共通化できる部分が多いが、それは今後の課題とする
-
-const docCookies = require('./cookies');
+import Cookies from 'js-cookie';
 
 const button_func = (numbering, l_2_p_numbering) => {
     const part_types = ['Center', 'Edge', 'Corner', 'Tcenter', 'Medge', ];
@@ -16,7 +15,8 @@ const button_func = (numbering, l_2_p_numbering) => {
         for (let k = 0; k < part_ln; k++) {
             const part = parts[k];
             const obj = document.querySelector('.' + part_type + '__' + part);
-            docCookies.setItem(part_type + '_' + part, obj.value.charAt(0), Infinity);
+            Cookies.set(part_type + '_' + part, obj.value.charAt(0), { path: '/BLD/go_ahead', expires: 399, });
+
             if (obj.value === ''){
                 has_blank_numbering = true;
             }
@@ -189,13 +189,13 @@ const setup = () => {
                 alert('There is no ' + '.' + part_type + '_' + part);
                 // break;
             }
-            const tmp_letter = docCookies.getItem(cookie_key);
+            const tmp_letter = Cookies.get(cookie_key);
             const letter = tmp_letter ? tmp_letter : '';
             numbering[part_type][part] = letter;
             l_2_p_numbering[part_type][letter] = part;
             //alert(part + ':' + numbering['edge'][part])
             obj.value = numbering[part_type][part];
-            docCookies.setItem(cookie_key, numbering[part_type][part], Infinity);
+            Cookies.set(cookie_key, numbering[part_type][part], { path: '/BLD/go_ahead', expires: 399, });
         });
     });
 
