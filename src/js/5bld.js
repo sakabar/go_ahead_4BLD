@@ -298,8 +298,11 @@ const medge_func = (part, ind) => {
     case 'UR':
         return 'R U R\' U\' M2 U R U\' R\'';
     case 'UF':
-        return 'M D2 M\' U2 M D2 M\' U2 M2';
-
+        if (ind % 2 == 0) {
+            return 'M D2 M\' U2 M D2 M\' U2 M2';
+        } else {
+            return medge_func('DB', 0);
+        }
 
     // L面
     case 'LF':
