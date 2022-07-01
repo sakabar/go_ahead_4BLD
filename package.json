@@ -1,6 +1,6 @@
 {
   "name": "go_ahead_4bld",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "4BLD Analysis Checker",
   "main": "index.js",
   "scripts": {
